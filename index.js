@@ -52,6 +52,7 @@ const gifgifgif = (caption,message, option) => {
 const gmtown = async (caption,url) => {
     var gif = new TextOnGif({
         file_path: url,
+        font_style: "sans",
         font_color: "white",
         stroke_color: "white",
         font_size: babyMode ? "20px" : "50px",
