@@ -10,6 +10,7 @@ const Tenor = require("tenorjs").client({
 const TextOnGif = require('text-on-gif');
 
 const filePath = "./gmtown/gmtown.gif";
+var babyMode = false;
 
 const client = new Client({
   intents: [
@@ -24,25 +25,37 @@ client.once("ready", () => {
 });
 
 client.on("messageCreate", message => {
-  if(/^gmtron/.test(message.content)) gifgifgif("gm town", message, message.content.replace(/^gmtron/, ""));
-  if(/^gntron/.test(message.content)) gifgifgif("gn town", message, message.content.replace(/^gntron/, ""));
+  if(/^gmtron/.test(message.content)) gifgifgif("gm town", message, message.content.replace(/^gmtron\s/, ""));
+  if(/^gntron/.test(message.content)) gifgifgif("gn town", message, message.content.replace(/^gntron\s/, ""));
+  if(/^gmtrom/.test(message.content)) message.channel.send("https://tenor.com/view/minor-spelling-mistake-minor-spelling-mistake-i-win-minor-spelling-mistake-i-win-meme-shadow-the-hedgehog-shadow-gif-26138585");
 });
 
 
 const gifgifgif = (caption,message, option) => {
     option = option === "" ? Math.floor(Math.random()*1000000) + "" : option;
-    console.log(option);
-    Tenor.Search.Random(option, "1").then( async (Results) => {
-        await gmtown(caption,Results[0].media_formats.gif.url);
-        message.channel.send({ files: [{ attachment: filePath}] });
-    }).catch(console.error);
+    if(/babymode/.test(option)) {
+        babyMode = !babyMode;
+    }
+    console.log(message.author.globalName + "(" + message.author.username + "): " + option);
+    try {
+        Tenor.Search.Random(option, "1").then( async (Results) => {
+            const url = babyMode ? Results[0].media_formats.tinygif.url : Results[0].media_formats.gif.url;
+            await gmtown(caption,url);
+            message.channel.send({ files: [{ attachment: filePath}] });
+        }).catch(console.error);
+    } catch (error) {
+        message.channel.send("https://tenor.com/view/gif-not-found-spinning-no-gif-gif-17612019");
+    }
+    
 }
 
 const gmtown = async (caption,url) => {
     var gif = new TextOnGif({
         file_path: url,
         font_color: "white",
-        font_size: "50px"
+        stroke_color: "white",
+        font_size: babyMode ? "20px" : "50px",
+        stroke_width: 1
     });
 
     await gif.textOnGif({
