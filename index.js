@@ -8,6 +8,7 @@ const Tenor = require("tenorjs").client({
     "DateFormat": "D/MM/YYYY - H:mm:ss A" // Change this accordingly
 });
 const TextOnGif = require('text-on-gif');
+TextOnGif.registerFont({path:"./OpenSans.ttf", family:"sans"});
 
 const filePath = "./gmtown/gmtown.gif";
 var babyMode = false;
