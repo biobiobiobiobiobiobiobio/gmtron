@@ -8,7 +8,7 @@ const Tenor = require("tenorjs").client({
     "DateFormat": "D/MM/YYYY - H:mm:ss A" // Change this accordingly
 });
 const TextOnGif = require('text-on-gif');
-TextOnGif.registerFont({path:"./OpenSans.ttf", family:"sans"});
+TextOnGif.registerFont({path:"./roboto.ttf", family:"roboto"});
 
 const filePath = "./gmtown/gmtown.gif";
 var babyMode = false;
@@ -53,7 +53,7 @@ const gifgifgif = (caption,message, option) => {
 const gmtown = async (caption,url) => {
     var gif = new TextOnGif({
         file_path: url,
-        font_style: "sans",
+        font_style: "roboto",
         font_color: "white",
         stroke_color: "white",
         font_size: babyMode ? "20px" : "50px",
